@@ -1,0 +1,12 @@
+/*
+Theme Name: storefront child
+Template: storefront
+
+Не обязательные параметры:
+Theme URI: http://storefront.com/
+Description: Child theme for StoreFront
+Author: devLynx
+Version: 1.0
+*/
+
+@import url("../storefront/style.css");
