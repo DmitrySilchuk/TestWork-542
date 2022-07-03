@@ -19,7 +19,7 @@
     width: 16px;
     height: 16px;
     margin: 4px 4px 4px 10px;
-    background: pink;
+    background: #eeeeee;
     border-radius: 50%;
     list-style: none;
     animation: animation-loading 1.2s infinite;
