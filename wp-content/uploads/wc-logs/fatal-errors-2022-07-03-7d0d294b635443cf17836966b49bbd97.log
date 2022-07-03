@@ -1,0 +1,66 @@
+2022-07-03T12:16:54+00:00 CRITICAL Uncaught Error: Call to a member function get_rating_count() on null in C:\OpenServer\domains\test.loc\wp-content\plugins\woocommerce\templates\single-product\rating.php:28
+Stack trace:
+#0 C:\OpenServer\domains\test.loc\wp-content\plugins\woocommerce\includes\wc-core-functions.php(345): include()
+#1 C:\OpenServer\domains\test.loc\wp-content\plugins\woocommerce\includes\wc-template-functions.php(1618): wc_get_template()
+#2 C:\OpenServer\domains\test.loc\wp-includes\class-wp-hook.php(307): woocommerce_template_single_rating()
+#3 C:\OpenServer\domains\test.loc\wp-includes\class-wp-hook.php(331): WP_Hook->apply_filters()
+#4 C:\OpenServer\domains\test.loc\wp-includes\plugin.php(476): WP_Hook->do_action()
+#5 C:\OpenServer\domains\test.loc\wp-content\themes\storefront-child\templates\create.php(9): do_action()
+#6 C:\OpenServer\domains\test.loc\wp-includes\template-loader.php(106): include('C:\\OpenServer\\d...')
+#7 C:\OpenServer\domains\test.loc\wp-blog-header.php(19): require_once('C:\\OpenServer\\d...')
+#8 C:\Open in C:\OpenServer\domains\test.loc\wp-content\plugins\woocommerce\templates\single-product\rating.php on line 28
+
+2022-07-03T12:21:47+00:00 CRITICAL Uncaught Error: Call to a member function get_rating_count() on null in C:\OpenServer\domains\test.loc\wp-content\plugins\woocommerce\templates\single-product\rating.php:28
+Stack trace:
+#0 C:\OpenServer\domains\test.loc\wp-content\plugins\woocommerce\includes\wc-core-functions.php(345): include()
+#1 C:\OpenServer\domains\test.loc\wp-content\plugins\woocommerce\includes\wc-template-functions.php(1618): wc_get_template()
+#2 C:\OpenServer\domains\test.loc\wp-includes\class-wp-hook.php(307): woocommerce_template_single_rating()
+#3 C:\OpenServer\domains\test.loc\wp-includes\class-wp-hook.php(331): WP_Hook->apply_filters()
+#4 C:\OpenServer\domains\test.loc\wp-includes\plugin.php(476): WP_Hook->do_action()
+#5 C:\OpenServer\domains\test.loc\wp-content\themes\storefront-child\templates\create.php(9): do_action()
+#6 C:\OpenServer\domains\test.loc\wp-includes\template-loader.php(106): include('C:\\OpenServer\\d...')
+#7 C:\OpenServer\domains\test.loc\wp-blog-header.php(19): require_once('C:\\OpenServer\\d...')
+#8 C:\Open in C:\OpenServer\domains\test.loc\wp-content\plugins\woocommerce\templates\single-product\rating.php on line 28
+
+2022-07-03T12:56:00+00:00 CRITICAL Uncaught Error: [] operator not supported for strings in C:\OpenServer\domains\test.loc\wp-content\plugins\woocommerce\includes\wc-template-functions.php:2752
+Stack trace:
+#0 C:\OpenServer\domains\test.loc\wp-content\themes\storefront-child\templates\create.php(20): woocommerce_form_field()
+#1 C:\OpenServer\domains\test.loc\wp-includes\template-loader.php(106): include('C:\\OpenServer\\d...')
+#2 C:\OpenServer\domains\test.loc\wp-blog-header.php(19): require_once('C:\\OpenServer\\d...')
+#3 C:\OpenServer\domains\test.loc\index.php(17): require('C:\\OpenServer\\d...')
+#4 {main}
+  thrown in C:\OpenServer\domains\test.loc\wp-content\plugins\woocommerce\includes\wc-template-functions.php on line 2752
+
+2022-07-03T13:11:48+00:00 CRITICAL Uncaught Error: Call to undefined function get_title() in C:\OpenServer\domains\test.loc\wp-content\themes\storefront-child\templates\create.php:7
+Stack trace:
+#0 C:\OpenServer\domains\test.loc\wp-includes\template-loader.php(106): include()
+#1 C:\OpenServer\domains\test.loc\wp-blog-header.php(19): require_once('C:\\OpenServer\\d...')
+#2 C:\OpenServer\domains\test.loc\index.php(17): require('C:\\OpenServer\\d...')
+#3 {main}
+  thrown in C:\OpenServer\domains\test.loc\wp-content\themes\storefront-child\templates\create.php on line 7
+
+2022-07-03T13:31:20+00:00 CRITICAL syntax error, unexpected end of file in C:\OpenServer\domains\test.loc\wp-content\themes\storefront-child\functions.php on line 34
+
+2022-07-03T13:31:21+00:00 CRITICAL syntax error, unexpected end of file in C:\OpenServer\domains\test.loc\wp-content\themes\storefront-child\functions.php on line 34
+
+2022-07-03T17:04:12+00:00 CRITICAL syntax error, unexpected ']' in C:\OpenServer\domains\test.loc\wp-content\themes\storefront-child\templates\create.php on line 52
+
+2022-07-03T17:16:27+00:00 CRITICAL Uncaught Error: Object of class WP_Term could not be converted to string in C:\OpenServer\domains\test.loc\wp-includes\formatting.php:1098
+Stack trace:
+#0 C:\OpenServer\domains\test.loc\wp-includes\formatting.php(4553): wp_check_invalid_utf8()
+#1 C:\OpenServer\domains\test.loc\wp-content\plugins\woocommerce\includes\wc-template-functions.php(2900): esc_html()
+#2 C:\OpenServer\domains\test.loc\wp-content\themes\storefront-child\templates\create.php(53): woocommerce_form_field()
+#3 C:\OpenServer\domains\test.loc\wp-includes\template-loader.php(106): include('C:\\OpenServer\\d...')
+#4 C:\OpenServer\domains\test.loc\wp-blog-header.php(19): require_once('C:\\OpenServer\\d...')
+#5 C:\OpenServer\domains\test.loc\index.php(17): require('C:\\OpenServer\\d...')
+#6 {main}
+  thrown in C:\OpenServer\domains\test.loc\wp-includes\formatting.php on line 1098
+
+2022-07-03T17:18:43+00:00 CRITICAL syntax error, unexpected 'var_dump' (T_STRING) in C:\OpenServer\domains\test.loc\wp-content\themes\storefront-child\templates\create.php on line 45
+
+2022-07-03T18:09:56+00:00 CRITICAL syntax error, unexpected '$product' (T_VARIABLE) in C:\OpenServer\domains\test.loc\wp-content\themes\storefront-child\functions.php on line 20
+
+2022-07-03T18:11:47+00:00 CRITICAL syntax error, unexpected ']' in C:\OpenServer\domains\test.loc\wp-content\themes\storefront-child\functions.php on line 34
+
+2022-07-03T18:11:48+00:00 CRITICAL syntax error, unexpected ']' in C:\OpenServer\domains\test.loc\wp-content\themes\storefront-child\functions.php on line 34
+
