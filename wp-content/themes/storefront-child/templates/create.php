@@ -5,35 +5,73 @@ get_header();
 Template Name: Create
 */
 
-
-add_action('wp_ajax_add_product', 'add_product');
-add_action('wp_ajax_nopriv_add_product', 'add_product');
-function add_product () {
-    $product = new WC_Product_Simple();
-
-    $product->set_name( 'Wizard Hat' ); // product title
-
-    $product->set_slug( 'medium-size-wizard-hat-in-new-york' );
-
-    $product->set_regular_price( 500.00 ); // in current shop currency
-
-    $product->set_short_description( '<p>Here it is... A WIZARD HAT!</p><p>Only here and now.</p>' );
-// you can also add a full product description
-// $product->set_description( 'long description here...' );
-
-    $product->set_image_id( 90 );
-
-// let's suppose that our 'Accessories' category has ID = 19
-    $product->set_category_ids( array( 19 ) );
-// you can also use $product->set_tag_ids() for tags, brands etc
-
-    $product->save();
-    wp_die();
-}
 ?>
+<header class="woocommerce-products-header">
+    <h1 class="woocommerce-products-header__title page-title">
+        <?php the_title(); ?>
+    </h1>
 
+</header>
+<div class="content-area form-create">
+    <div id="child-product-form">
+        <div class="child-product-message"></div>
+        <?php
+        woocommerce_form_field('child-product-name', [
+            'type' => 'text',
+            'placeholder' => 'Enter product name',
+            'label' => 'Product name',
+            'required' => true
+        ]);
+        woocommerce_form_field('child-product-price', [
+            'type' => 'number',
+            'placeholder' => 'Enter price',
+            'label' => 'Price',
+            'required' => true,
+            'class' => ['woocommerce-form-row', 'woocommerce-form-row--first', 'form-row', 'form-row-first']
+        ]);
+        woocommerce_form_field('child-product-datetime', [
+            'type' => 'datetime-local',
+            'placeholder' => 'Enter date and time of publish',
+            'label' => 'Date and time',
+            'required' => true,
+            'class' => ['woocommerce-form-row', 'woocommerce-form-row--last', 'form-row', 'form-row-last']
+        ]);
 
-<button></button>
+        $terms = get_terms([
+            'taxonomy' => 'product_cat',
+            'hide_empty' => false
+        ]);
+        $options = [];
+
+        foreach($terms as $term) {
+            $options[$term->term_id] = $term->name;
+        }
+
+        woocommerce_form_field('child-product-select', [
+            'type' => 'select',
+            'placeholder' => 'Enter date and time of publish',
+            'label' => 'Select category',
+            'options' => $options
+        ]);  ?>
+        <div class="clear"></div>
+        <div class="child-submit-wrap">
+            <button type="submit" class="woocommerce-Button button" id="child-product-submit">
+                Create product
+            </button>
+            <div class="child-loader child-loader--disable">
+                <div class="child-loader__item"></div>
+                <div class="child-loader__item"></div>
+                <div class="child-loader__item"></div>
+            </div>
+        </div>
+
+    </div>
+    <div>
+
+    </div>
+
+</div>
+
 <?php
 get_footer();
 ?>

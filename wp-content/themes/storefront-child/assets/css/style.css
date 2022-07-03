@@ -1,0 +1,46 @@
+.form-create {
+    display: flex;
+    width: 100%;
+}
+.form-create .showcoupon {
+    text-decoration: underline;
+}
+.child-loader {
+    display: flex;
+}
+.child-submit-wrap {
+    display: flex;
+    align-items: center;
+}
+.child-loader--disable{
+    display: none;
+}
+.child-loader__item {
+    width: 16px;
+    height: 16px;
+    margin: 4px 4px 4px 10px;
+    background: pink;
+    border-radius: 50%;
+    list-style: none;
+    animation: animation-loading 1.2s infinite;
+}
+.child-loader:nth-child(1) {
+    animation-delay: -0.3s;
+}
+.child-loader:nth-child(2) {
+    animation-delay: -0.15s;
+}
+@keyframes animation-loading {
+    0% {
+        transform: scale(0);
+    }
+    40% {
+        transform: scale(1);
+    }
+    80% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(0);
+    }
+}
