@@ -22,12 +22,21 @@ jQuery(function($){
         customUploader.open();
     });
 
-    $('.remove_image_button').click(function( event){
+    $('.remove_image_button').click(function(event) {
         event.preventDefault();
-        if ( true == confirm( "Уверены?" ) ) {
-            const src = $(this).parent().prev().data('src');
-            $(this).parent().prev().attr('src', src);
-            $(this).prev().prev().val('');
-        }
+        const src = $(this).parent().prev().data('src');
+        $(this).parent().prev().attr('src', src);
+        $(this).prev().prev().val('');
+    });
+
+    $('.js_clean_field').click(function(event) {
+        event.preventDefault();
+        $('.js_select_category').val('');
+        $('.js_created_date').val('');
+        $('.remove_image_button').click();
+    });
+
+    $('.js_submit_field').click(function() {
+       $('#publish').click();
     });
 });
