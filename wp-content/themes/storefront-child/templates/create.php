@@ -13,7 +13,7 @@ Template Name: Create
 
 </header>
 <div class="content-area form-create">
-    <div id="child-product-form">
+    <div  id="child-product-form">
         <div class="child-product-message"></div>
         <?php
         woocommerce_form_field('child-product-name', [
@@ -51,8 +51,21 @@ Template Name: Create
             'type' => 'select',
             'placeholder' => 'Enter date and time of publish',
             'label' => 'Select category',
-            'options' => $options
+            'options' => $options,
+            'class' => ['woocommerce-form-row', 'woocommerce-form-row--first', 'form-row', 'form-row-first']
         ]);  ?>
+
+        <p class="form-row woocommerce-form-row woocommerce-form-row--last form-row form-row-last"
+           id="child-product-image_field">
+            <label for="child-product-image">Upload image</label>
+            <span class="woocommerce-input-wrapper">
+                <input type="file"
+                       class="input-text"
+                       name="child-product-image"
+                       id="child-product-image"
+                >
+            </span>
+        </p>
         <div class="clear"></div>
         <div class="child-submit-wrap">
             <button type="submit" class="woocommerce-Button button" id="child-product-submit">
