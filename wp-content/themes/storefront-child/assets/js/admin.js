@@ -1,4 +1,5 @@
 jQuery(function($){
+
     $('.upload_image_button').click(function( event ){
         event.preventDefault();
         const button = $(this);

@@ -1,6 +1,17 @@
-.create-page .showcoupon {
-    text-decoration: underline;
+.wrap-button {
+    padding: 15px;
 }
+.m-left-15 {
+    margin-left: 15px;
+}
+.js_upload_image, .flex-row {
+    display: flex;
+    align-items: center;
+}
+.css_clean_field {
+    margin-right: 25px;
+}
+
 .child-loader {
     display: flex;
 }
