@@ -1,8 +1,8 @@
 <?php
-
 add_action('woocommerce_product_options_general_product_data', 'woo_add_custom_fields');
 function woo_add_custom_fields($post_id) {
     echo '<div class="options_group">';
+    
     woocommerce_wp_select([
         'id'      => '_select',
         'label'   => 'Тип продукта',
@@ -103,6 +103,9 @@ function add_product () {
     $product_category_id = htmlspecialchars($_POST['child-product-select']);
     $product_slug = str_replace(' ', '_', strtolower($product_name));
 
+    $product_image = wp_handle_upload($_FILES['file'], ['test_form' => false]);
+
+    cut_image($product_image['url']);
 
     $product = new WC_Product_Simple();
     $product->set_name( $product_name );
@@ -112,6 +115,35 @@ function add_product () {
     $product->set_category_ids([ $product_category_id ]);
     $product->save();
 
-    echo get_permalink( $product->get_id() );
-    wp_die();
+    $product_image = attachment_url_to_postid($product_image['url']);
+
+    update_post_meta($product->get_id(), '_select', intval($product_category_id));
+    update_post_meta($product->get_id(), '_number_field', esc_attr($product_datetime));
+    update_post_meta($product->get_id(), 'uploader_custom', $product_image);
+
+    wp_die( get_permalink( $product->get_id() ) );
+}
+
+function cut_image($image_url) {
+    $upload_dir = wp_upload_dir();
+    $image_data = file_get_contents( $image_url );
+    $filename = basename( $image_url );
+    if ( wp_mkdir_p( $upload_dir['path'] ) ) {
+        $file = $upload_dir['path'] . '/' . $filename;
+    }
+    else {
+        $file = $upload_dir['basedir'] . '/' . $filename;
+    }
+    file_put_contents( $file, $image_data );
+    $wp_fileType = wp_check_filetype( $filename, null );
+    $attachment = array(
+        'post_mime_type' => $wp_fileType['type'],
+        'post_title' => sanitize_file_name( $filename ),
+        'post_content' => '',
+        'post_status' => 'inherit'
+    );
+    $attach_id = wp_insert_attachment( $attachment, $file );
+    require_once( ABSPATH . 'wp-admin/includes/image.php' );
+    $attach_data = wp_generate_attachment_metadata( $attach_id, $file );
+    wp_update_attachment_metadata( $attach_id, $attach_data );
 }
