@@ -1,42 +1,70 @@
 <?php
 
+const UNCATEGORIZED = 15;
+
 add_action('woocommerce_product_options_general_product_data', 'woo_add_custom_fields');
 function woo_add_custom_fields($post_id) {
-    echo '<div class="options_group">';
-    woocommerce_wp_select([
-        'id'      => '_select',
-        'label'   => 'Тип продукта',
-        'options' => [
-            'one'   => __('rare', 'woocommerce'),
-            'two'   => __('frequent', 'woocommerce'),
-            'three' => __('unusual', 'woocommerce'),
-        ],
-    ]);
 
-    woocommerce_wp_text_input([
-        'id'                => '_number_field',
-        'label'             => __('Дата создания продукта', 'woocommerce'),
-        'placeholder'       => 'Выберите дату создания продукта',
-        'type'              => 'datetime-local',
+    $terms = get_terms([
+        'taxonomy'   => 'product_cat',
+        'hide_empty' => false
     ]);
+    $options = [];
 
-    image_uploader_field([
-        'name' => 'uploader_custom',
-        'value' => get_post_meta($post_id, 'uploader_custom', true),
-    ]);
+    foreach($terms as $term) {
+        $options[$term->term_id] = $term->name;
+    }
+    ob_start(); ?>
+    <div class="options_group">
+        <?php
+        woocommerce_wp_select([
+            'id'      => '_select',
+            'class'   => 'js_select_category',
+            'label'   => 'Product type',
+            'options' => $options
+        ]);
 
-    echo '</div>';
+        woocommerce_wp_text_input([
+            'id'                => '_number_field',
+            'label'             => __('Product create date', 'woocommerce'),
+            'class'             => 'js_created_date',
+            'placeholder'       => 'Change product create date',
+            'type'              => 'datetime-local',
+        ]);
+
+        ?>
+        <div class="js_upload_image">
+            <?php
+            image_uploader_field([
+                'name' => 'uploader_custom',
+                'value' => get_post_meta($post_id, 'uploader_custom', true),
+            ]);
+            ?>
+        </div>
+        <div>
+            <div>
+                <button class="js_clean_field button">Clean field</button>
+            </div>
+        </div>
+        <div>
+            <div>
+                <button class="js_submit_field button">Update</button>
+            </div>
+        </div>
+	</div>
+    <?php
+    echo ob_get_clean();
 }
 
 add_action('woocommerce_process_product_meta', 'woo_custom_fields_save', 10);
 function woo_custom_fields_save($post_id)
 {
-    $woocommerce_select = $_POST['_select'];
+    $woocommerce_select = !empty($_POST['_select']) ? $_POST['_select'] : UNCATEGORIZED;
     if (!empty($woocommerce_select)) {
         update_post_meta($post_id, '_select', esc_attr($woocommerce_select));
     }
 
-    $woocommerce_input = $_POST['_number_field'];
+    $woocommerce_input = !empty($_POST['_number_field']) ? $_POST['_number_field'] : date('Y-m-d H:i:s');
     if (!empty($woocommerce_input)) {
         update_post_meta($post_id, '_number_field', esc_attr($woocommerce_input));
     }
@@ -51,6 +79,17 @@ function woo_custom_fields_save($post_id)
             remove_action('save_post', 'update_create_product_date');
             wp_update_post($my_args);
             update_post_meta($post_id, 'uploader_custom', absint($_POST[ 'uploader_custom' ]));
+
+            $terms = get_the_terms($post_id, 'product_cat');
+            $termsIds = [];
+            foreach ($terms as $term) {
+                $termsIds[] = $term->term_id;
+            }
+            $postCategory = !empty($_POST['_select']) ? $_POST['_select'] : UNCATEGORIZED;
+            $categories = array_diff($termsIds, [$postCategory]);
+
+            wp_remove_object_terms($post_id, $categories, 'product_cat' );
+            wp_set_post_terms($post_id, $postCategory, 'product_cat', true);
             add_action('save_post', 'update_create_product_date');
         }
     }
@@ -61,7 +100,7 @@ function include_upload_script() {
     if (!did_action('wp_enqueue_media')) {
         wp_enqueue_media();
     }
-    wp_enqueue_script('myuploadscript', get_stylesheet_directory_uri() . '/admin.js', ['jquery'], null, false);
+    wp_enqueue_script('upload_script', get_stylesheet_directory_uri() . '/admin.js', ['jquery'], null, false);
 }
 
 function image_uploader_field($args) {
@@ -74,17 +113,30 @@ function image_uploader_field($args) {
     else {
         $src = $default;
     }
-    echo '
+    ob_start(); ?>
 	<div>
-		<img data-src="' . $default . '" src="' . $src . '" width="150" />
+		<img data-src="<?= $default ?>" src="<?= $src ?>" width="150" />
 		<div>
-			<input type="hidden" name="' . $args['name'] . '" id="' . $args['name'] . '" value="' . $value . '" />
-			<button type="submit" class="upload_image_button button">Загрузить</button>
+			<input type="hidden" name="<?= $args['name'] ?>" id="<?= $args['name'] ?>" value="<?= $value ?>" />
+			<button type="submit" class="upload_image_button button">Upload</button>
 			<button type="submit" class="remove_image_button button">×</button>
 		</div>
 	</div>
-	';
+    <?php
 }
+
+add_filter('woocommerce_product_get_image', function () {
+    $value = get_post_meta(get_the_ID(), 'uploader_custom', true);
+    $default = get_stylesheet_directory_uri() . '/placeholder.png';
+
+    if($value && ($image_attributes = wp_get_attachment_image_src($value, [150, 110]))) {
+        $src = $image_attributes[0];
+    }
+    else {
+        $src = $default;
+    }
+    return "<img src='$src'>";
+});
 
 add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style('child_style', get_stylesheet_directory_uri() . '/assets/css/style.css', array(), 2.0);
