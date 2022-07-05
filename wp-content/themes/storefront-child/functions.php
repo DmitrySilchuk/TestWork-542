@@ -123,6 +123,7 @@ function image_uploader_field($args) {
 		</div>
 	</div>
     <?php
+    echo ob_get_clean();
 }
 
 add_filter('woocommerce_product_get_image', function () {

@@ -36,7 +36,8 @@ jQuery(function($){
         $('.remove_image_button').click();
     });
 
-    $('.js_submit_field').click(function() {
-       $('#publish').click();
+    $('.js_submit_field').click(function(event) {
+        event.preventDefault();
+        $('#publish').click();
     });
 });
