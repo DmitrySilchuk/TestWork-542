@@ -1,8 +1,4 @@
-.form-create {
-    display: flex;
-    width: 100%;
-}
-.form-create .showcoupon {
+.create-page .showcoupon {
     text-decoration: underline;
 }
 .child-loader {

@@ -38,13 +38,11 @@
                     btn_submit.attr('disabled', true);
                     $('.child-loader').removeClass('child-loader--disable');
                 },
-                success: function (data) {
+                success: function (link) {
                     try {
-                        notification_message.removeClass('woocommerce-error');
+                        notification_message.   removeClass('woocommerce-error');
                         notification_message.addClass('woocommerce-message');
-                        notification_message.html(
-                            `Продукт успешно создан. <a class="showcoupon" href='${data}'>Перейти к продукту</a>`
-                        );
+                        notification_message.append('Продукт успешно создан.');
 
                         notification_message.fadeIn();
                         btn_submit.attr('disabled', false);
@@ -61,12 +59,11 @@
                     $('.child-loader').addClass('child-loader--disable');
                 }
             });
-
         }
         else {
             notification_message.removeClass('woocommerce-message');
             notification_message.addClass('woocommerce-error');
-            notification_message.text('Не все поля заполнены или не правильно введены');
+            notification_message.html('Не все поля заполнены или не правильно введены');
             notification_message.fadeIn();
         }
     });

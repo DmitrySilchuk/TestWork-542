@@ -121,7 +121,7 @@ function add_product () {
     update_post_meta($product->get_id(), '_number_field', esc_attr($product_datetime));
     update_post_meta($product->get_id(), 'uploader_custom', $product_image);
 
-    wp_die( get_permalink( $product->get_id() ) );
+    wp_die();
 }
 
 function cut_image($image_url) {
