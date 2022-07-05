@@ -38,11 +38,11 @@
                     btn_submit.attr('disabled', true);
                     $('.child-loader').removeClass('child-loader--disable');
                 },
-                success: function (link) {
+                success: function () {
                     try {
-                        notification_message.   removeClass('woocommerce-error');
+                        notification_message.removeClass('woocommerce-error');
                         notification_message.addClass('woocommerce-message');
-                        notification_message.append('Продукт успешно создан.');
+                        notification_message.html('Продукт успешно создан.');
 
                         notification_message.fadeIn();
                         btn_submit.attr('disabled', false);

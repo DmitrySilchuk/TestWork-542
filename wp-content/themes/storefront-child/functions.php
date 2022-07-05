@@ -38,20 +38,13 @@ function woo_add_custom_fields($post_id) {
             image_uploader_field([
                 'name' => 'uploader_custom',
                 'value' => get_post_meta($post_id, 'uploader_custom', true),
-            ]);
-            ?>
-        </div>
-        <div>
-            <div>
-                <button class="js_clean_field button">Clean field</button>
-            </div>
-        </div>
-        <div>
-            <div>
-                <button class="js_submit_field button">Update</button>
-            </div>
+            ]); ?>
         </div>
 	</div>
+    <div class="wrap-button">
+        <button class="js_clean_field button css_clean_field button-large">Clean fields</button>
+        <button class="js_submit_field button css_submit_field button-large">Update</button>
+    </div>
     <?php
     echo ob_get_clean();
 }
@@ -100,7 +93,8 @@ function include_upload_script() {
     if (!did_action('wp_enqueue_media')) {
         wp_enqueue_media();
     }
-    wp_enqueue_script('upload_script', get_stylesheet_directory_uri() . '/admin.js', ['jquery'], null, false);
+    wp_enqueue_style('child_style', get_stylesheet_directory_uri() . '/assets/css/style.css', array(), 2.0);
+    wp_enqueue_script('upload_script', get_stylesheet_directory_uri() . '/assets/js/admin.js', ['jquery'], null, false);
 }
 
 function image_uploader_field($args) {
@@ -114,14 +108,14 @@ function image_uploader_field($args) {
         $src = $default;
     }
     ob_start(); ?>
-	<div>
+	<p class="form-field flex-row">
 		<img data-src="<?= $default ?>" src="<?= $src ?>" width="150" />
-		<div>
+		<span class="m-left-15">
 			<input type="hidden" name="<?= $args['name'] ?>" id="<?= $args['name'] ?>" value="<?= $value ?>" />
-			<button type="submit" class="upload_image_button button">Upload</button>
-			<button type="submit" class="remove_image_button button">×</button>
-		</div>
-	</div>
+			<span type="submit" class="upload_image_button button">Upload</span>
+			<span type="submit" class="remove_image_button button">×</span>
+		</span>
+	</p>
     <?php
     echo ob_get_clean();
 }
