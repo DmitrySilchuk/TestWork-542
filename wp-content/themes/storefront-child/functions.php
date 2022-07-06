@@ -57,7 +57,7 @@ function woo_custom_fields_save($post_id)
         update_post_meta($post_id, '_select', esc_attr($woocommerce_select));
     }
 
-    $woocommerce_input = !empty($_POST['_number_field']) ? $_POST['_number_field'] : date('Y-m-d H:i:s');
+    $woocommerce_input = !empty($_POST['_number_field']) ? $_POST['_number_field'] : date('Y-m-d H:i');
     if (!empty($woocommerce_input)) {
         update_post_meta($post_id, '_number_field', esc_attr($woocommerce_input));
     }
@@ -68,6 +68,7 @@ function woo_custom_fields_save($post_id)
             $my_args = [
                 'ID' => $post_id,
                 'post_date' => get_post_meta($post_id, '_number_field', true),
+                'post_date_gmt' => get_gmt_from_date(get_post_meta($post_id, '_number_field', true))
             ];
             remove_action('save_post', 'update_create_product_date');
             wp_update_post($my_args);
