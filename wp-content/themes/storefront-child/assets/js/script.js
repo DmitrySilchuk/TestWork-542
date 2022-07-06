@@ -51,7 +51,7 @@
                         $('#child-product-price').val('');
                         $('#child-product-datetime').val('');
                         $('#child-product-image').val('');
-                        $('#child-product-select').val(15);
+                        $('#child-product-select').val(child_localize.default_category);
 
                     } catch (e) {
                         console.log(e);
